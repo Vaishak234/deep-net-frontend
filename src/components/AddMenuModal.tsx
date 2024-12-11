@@ -25,15 +25,7 @@ const AddMenuModal = ({ close }: props) => {
     const { name, value } = e.target;
     setMenu((prev) => ({ ...prev, [name]: value }));
   };
-  //   const addMenu = async() =>{
-  //         try {
-  //             const response = await axios.post(`/menu`,{})
-  //             console.log(response);
-  //         } catch (err) {
-  //             console.log((err as Error).message);
 
-  //         }
-  //   }
   return (
     <>
       {nextModal ? (

@@ -14,12 +14,16 @@ const AddMenuItems = ({ menu, close }: props) => {
   const context = useContext(GlobalContext);
   const [selecteditems, setSelecteditems] = useState<menuItems[]>([]);
 
-  const { setMenus } = context;
   const [items, setItem] = useState({
     name: "",
     price: "",
     description: "",
   });
+
+  if (!context) return;
+
+  const { setMenus } = context;
+
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -33,18 +37,19 @@ const AddMenuItems = ({ menu, close }: props) => {
       menu,
     };
 
-    try {
-      const response: any = await axios.post("/menu", { data });
-      console.log(response);
-      if (response) {
-        setMenus((prev) => [...prev, response.data.menu]);
+    axios
+      .post("/menu", { data })
+      .then((response) => {
+        console.log(response);
+        if (response) {
+          setMenus((prev: initialMenu[]) => [...prev, response.data.menu]);
+          close();
+        }
+      })
+      .catch((error) => {
         close();
-      }
-
-    } catch (error) {
-      close();
-      console.log(error);
-    }
+        console.log(error);
+      });
   };
   return (
     <div className="bg-black fixed inset-0 flex justify-center items-center  h-screen z-10">
