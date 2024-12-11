@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
-import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 import { initialMenu } from "../components/AddMenuModal";
 import axios from "../axios/axios";
 import { GlobalContext } from "./GlobalStateProvider";
@@ -8,14 +7,14 @@ import { menuItems } from "./ButtonBanner";
 
 type props = {
   menu: initialMenu,
-  close:()=>void
+  close: () => void;
 };
 
-const AddMenuItems = ({ menu,close }: props) => {
+const AddMenuItems = ({ menu, close }: props) => {
   const context = useContext(GlobalContext);
   const [selecteditems, setSelecteditems] = useState<menuItems[]>([]);
-  if (!context) return;
-  const { setItems, setMenus } = context;
+
+  const { setMenus } = context;
   const [items, setItem] = useState({
     name: "",
     price: "",
@@ -39,11 +38,11 @@ const AddMenuItems = ({ menu,close }: props) => {
       console.log(response);
       if (response) {
         setMenus((prev) => [...prev, response.data.menu]);
-        close()
+        close();
       }
 
     } catch (error) {
-        close()
+      close();
       console.log(error);
     }
   };
@@ -59,15 +58,15 @@ const AddMenuItems = ({ menu,close }: props) => {
               Add Menu Items
             </h2>
           </div>
-            <div className="flex gap-2 flex-wrap mt-4">
-                {
-                    selecteditems.map((elem)=>{
-                        return (
-                            <h3 className="bg-blue-500 text-white px-4 py-2 w-fit rounded-lg">{elem.name}</h3>
-                        )
-                    })
-                }
-            </div>
+          <div className="flex gap-2 flex-wrap mt-4">
+            {
+              selecteditems.map((elem) => {
+                return (
+                  <h3 className="bg-blue-500 text-white px-4 py-2 w-fit rounded-lg">{elem.name}</h3>
+                );
+              })
+            }
+          </div>
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form action="#" method="POST" className="space-y-6">
               <div>
@@ -131,8 +130,8 @@ const AddMenuItems = ({ menu,close }: props) => {
               </div>
               <div className="flex  gap-2">
                 <button
-                 onClick={() => {
-                    
+                  onClick={() => {
+
                     setSelecteditems((prev) => {
                       const updatedItems = [...prev, { ...items }];
                       console.log("Updated selected items:", updatedItems);
@@ -144,8 +143,8 @@ const AddMenuItems = ({ menu,close }: props) => {
                       price: "",
                     });
                   }}
-                  
-                  
+
+
                   type="button"
                   className="flex w-full justify-center items-center gap-2 rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >

@@ -2,17 +2,16 @@ import { useState } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 import { FaGreaterThan } from "react-icons/fa";
 import AddMenuItems from "./AddMenuItems";
-import axios from "../axios/axios"
 
 type props = {
   close: () => void;
 };
 
 export type initialMenu = {
-    _id?:string,
-    name:string,
-    description:string
-}
+  _id?: string,
+  name: string,
+  description: string;
+};
 
 const AddMenuModal = ({ close }: props) => {
   const [nextModal, setNextModal] = useState<boolean>(false);
@@ -26,17 +25,17 @@ const AddMenuModal = ({ close }: props) => {
     const { name, value } = e.target;
     setMenu((prev) => ({ ...prev, [name]: value }));
   };
-//   const addMenu = async() =>{
-//         try {
-//             const response = await axios.post(`/menu`,{})
-//             console.log(response);
-//         } catch (err) {
-//             console.log((err as Error).message);
-            
-//         }
-//   }
+  //   const addMenu = async() =>{
+  //         try {
+  //             const response = await axios.post(`/menu`,{})
+  //             console.log(response);
+  //         } catch (err) {
+  //             console.log((err as Error).message);
+
+  //         }
+  //   }
   return (
-    <>  
+    <>
       {nextModal ? (
         <AddMenuItems close={close} menu={menu} />
       ) : (
@@ -106,7 +105,7 @@ const AddMenuModal = ({ close }: props) => {
                         <FaGreaterThan />
                       </button>
                     ) : (
-                      <button 
+                      <button
                         type="button"
                         disabled
                         className="flex w-full justify-center items-center gap-2 rounded-md bg-indigo-300 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
